@@ -350,7 +350,9 @@ class GitCommandManager {
   }
 
   async lfsInstall(): Promise<void> {
-    await this.execGit(['lfs', 'install', '--local'])
+    // https://github.com/actions/checkout/issues/1476
+    // we use force to bypass errors with differing git-lfs versions
+    await this.execGit(['lfs', 'install', '--local', '--force'])
   }
 
   async log1(format?: string): Promise<string> {
